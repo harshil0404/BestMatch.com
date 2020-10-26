@@ -1,0 +1,247 @@
+html{
+    background: linear-gradient(to bottom,#1a0024,#3b0052,#560078,#71009e,#9d00db,#b700ff);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height:auto;
+    min-height: 100%;
+}
+.wrapper{
+    display: block;
+    background-color: white ;
+    width : 70%;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 150px;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 15px 15px 10px black;
+    overflow: hidden;
+}
+.wrapper > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+/* -----------------------------------------login.php PAGE CSS------------------------------------------ */
+.logo{
+    font-size:90px;
+}
+div .company span.best{
+    font-weight: 900;
+}
+.company{
+    font-size:65px;
+    background: -moz-linear-gradient(to bottom);
+}
+.tag{
+    font-size: 20px;
+}
+.started{
+    font-size: 25px;
+    margin-top: 20px;
+}
+input[type='submit']{
+    font-size: 30px;
+    margin: 35px 0px 0px 25px;
+    padding: 20px 70px;
+    border: none;
+    background-color: #2b0036;
+    color: white;
+    cursor: pointer;
+    opacity: 0.7;
+}
+input[type="text"],input[type="date"],input[type="password"],input[type="email"],input[type="color"],input[type="tel"]{
+    font-size: 25px;
+    margin: 15px 0px 0px 0px;
+    padding: 10px 20px 10px 20px;
+    cursor: pointer;
+}
+input[type="submit"]:hover{
+    opacity: 1;
+}
+div.options{
+    margin-top: 70px;
+    display: flex;
+    flex-direction: row;
+}
+.options div{
+    margin : 5px;
+    cursor: pointer;
+    font-size: 35px;
+    padding: 20px 35px;
+}
+.options .signup{
+    background-color: black;
+    color : white;
+}
+.options .signin{
+    border:2px solid black;
+}
+.options .signup:hover{
+    color:purple;
+}
+.options .signin:hover{
+    color: purple;
+    border: 2px solid purple;
+}
+input[type='radio']{
+    transform: scale(1.2);
+}
+/* ------------------------------------------eof login------------------------------------------------ */
+
+/* ---------------------------------------page index.php---------------------------------------------- */
+
+nav{
+    display: block;
+    justify-content: center;
+}
+input[type="search"]{
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    cursor: pointer;
+}
+.profile{
+    float:right;
+    font-size:27px;
+    padding:7px;
+    cursor:pointer;
+    text-shadow:3px 3px 2px white;
+    border-radius:50%;
+    border:2px solid black;
+    margin: auto 0;
+}
+.namehead{
+    float:right;
+    font-size: 30px;
+    margin: 5px 10px 0px 0px;
+}
+.adv-search{
+    z-index: 1;
+    padding: 10px;
+    background-color: lightgrey;
+    margin-top:10px;
+    border:1px solid black;
+    width:35%;
+    transition: 0.3s;
+    transform:scale(0);
+    position: relative;
+    left:101px;
+}
+
+/* ----------------------------------------eof index--------------------------------------------------- */
+span.king{
+    display: block;
+    color: gold;
+    font-size: 18px;
+    font-family: 'Sriracha', cursive;
+    font-weight: 900;
+    text-align: center;
+    bottom: -10px;
+    position: relative;
+    left: -10px;
+    width:100%;
+    padding:7px;
+}
+@media screen and (max-width : 900px) {
+    .wrapper{
+        display: block;
+        background-color: white ;
+        width : 80%;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 150px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 15px 15px 10px black;
+        overflow: hidden;
+    }
+    .wrapper div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+    .logo{
+        font-size:50px;
+    }
+    .company{
+        font-size:40px;
+        background: -moz-linear-gradient(to bottom);
+    }
+    .tag{
+        font-size: 15px;
+    }
+    .started{
+        font-size: 15px;
+        margin-top: 20px;
+    }
+    .wrapper .hr1{
+        width: 95%;
+    }
+    div .signin-form{
+        display: none;
+    }
+    div .signup-form{
+        display: none;
+    }
+    input[type='text']{
+        font-size: 15px;
+        margin: 5px 0px 0px 0px;
+        padding: 5px 10px 5px 10px;
+    }
+    input[type='password']{
+        font-size: 15px;
+        margin: 5px 0px 0px 0px;
+        padding: 5px 10px 5px 10px;
+    }
+    input[type='submit']{
+        font-size: 10px;
+        margin: 10px 0px 0px 0px;
+        padding: 10px 20px;
+        border: none;
+        background-color: #2b0036;
+        color: white;
+        cursor: pointer;
+        opacity: 0.7;
+    }
+    input[type="submit"]:hover{
+        opacity: 1;
+    }
+    div.options{
+        margin-top: 30px;
+        display: flex;
+        flex-direction: row;
+    }
+    .options div{
+        margin : 2.5px;
+        cursor: pointer;
+        font-size: 15px;
+        padding: 10px 15px;
+    }
+    .options .signup{
+        background-color: black;
+        color : white;
+    }
+    .options .signin{
+        border:2px solid black;
+    }
+    .options .signup:hover{
+        color:purple;
+    }
+    .options .signin:hover{
+        color: purple;
+        border: 2px solid purple;
+    }
+    span.king{
+        display: block;
+        color: gold;
+        font-size: 15px;
+        font-weight: 900;
+        text-align: center;
+        bottom: -30px;
+        position: relative;
+        width:100%;
+        padding:7px;
+    }
+}
