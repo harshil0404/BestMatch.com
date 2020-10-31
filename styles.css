@@ -1,7 +1,7 @@
 html{
     background: linear-gradient(to bottom,#1a0024,#3b0052,#560078,#71009e,#9d00db,#b700ff);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; 
     height:auto;
     min-height: 100%;
 }
@@ -23,7 +23,7 @@ html{
     justify-content: center;
     text-align: center;
 }
-/* -----------------------------------------login.php PAGE CSS------------------------------------------ */
+/* -----------------------------------------welcome.php PAGE CSS------------------------------------------ */
 .logo{
     font-size:90px;
 }
@@ -60,6 +60,14 @@ input[type="text"],input[type="date"],input[type="password"],input[type="email"]
 input[type="submit"]:hover{
     opacity: 1;
 }
+.signup-form .radio label{
+    font-size:30px;
+    color:grey;
+}
+.signup-form .choose-color{
+    font-size:30px;
+    color:grey;
+}
 div.options{
     margin-top: 70px;
     display: flex;
@@ -88,21 +96,37 @@ div.options{
 input[type='radio']{
     transform: scale(1.2);
 }
-/* ------------------------------------------eof login------------------------------------------------ */
+/* ------------------------------------------eof index------------------------------------------------ */
 
-/* ---------------------------------------page index.php---------------------------------------------- */
+/* ---------------------------------------page welcome.php---------------------------------------------- */
 
 nav{
     display: block;
     justify-content: center;
+    padding: 10px;
 }
 input[type="search"]{
     font-size: 20px;
     padding: 10px 20px 10px 20px;
     cursor: pointer;
+    transition: 0.3s;
+    margin: 0;
+}
+.wrapper nav .search-btn{
+    font-size:30px;
+    border:2px solid grey;
+    padding:2px 6.5px 11.5px 6.5px;
+    cursor:pointer;
+}
+.adv-search-btn{
+    font-size:30px;
+    border:2px solid grey;
+    padding:1px 6.5px 9px 6.5px;
+    cursor:pointer;
+    position: relative;
 }
 .profile{
-    float:right;
+    float:right ;
     font-size:27px;
     padding:7px;
     cursor:pointer;
@@ -115,6 +139,13 @@ input[type="search"]{
     float:right;
     font-size: 30px;
     margin: 5px 10px 0px 0px;
+    text-transform: capitalize;
+}
+.logout-btn{
+    float:right;
+    font-size:30px;
+    color: black;
+    margin: 7px 7px 7px 14px;
 }
 .adv-search{
     z-index: 1;
@@ -124,12 +155,119 @@ input[type="search"]{
     border:1px solid black;
     width:35%;
     transition: 0.3s;
-    transform:scale(0);
     position: relative;
-    left:101px;
+    
 }
+.app-name{
+    display: none;
+}
+.default-search{
+    display: block;
+    margin-top: 25px;
+    max-width: 45%;
+}
+.user-search{
+    margin-top: 25px;
+}
+.advanced-search{
+    margin-top: 25px;
+}
+/* ==============start card================== */
+.card{
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px !important;
+    /* border-radius:8px; */
+    padding: 20px 40px 20px 20px;
+    width:70%;
+    box-shadow: 5px 5px 5px black;
+    transition:0.2s;
+}
+.card:hover{
+    transform: scale(1.05);
+}
+.card > div{
+    display: flex;
+}
+.card-row1 > div{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 10px;
+}
+.card-row2 {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    justify-content: center;
+    vertical-align: middle; 
+    position: relative;
+}
+.card-name{
+    text-transform: capitalize;
+    font-size: 30px;
+    
+}
+.card-email{
+    font-size: 15px;
+    color:gray;
 
-/* ----------------------------------------eof index--------------------------------------------------- */
+}
+.like{
+    display: block;
+    position: absolute;
+    right:0;
+    bottom: 0;
+    font-size: 20px;
+    cursor: pointer;
+}
+.profession {
+    font-size: 17px;
+    text-align: left;
+
+}
+.search-initials{
+    float:right ;
+    font-size:27px;
+    padding:10px;
+    cursor:pointer;
+    text-shadow:3px 3px 2px white;
+    border-radius:50%;
+    border:2px solid black;
+    margin: auto 0;
+    text-transform: uppercase;
+}
+/* ==============display flex============= */
+.display-flex {
+    display: flex;
+    flex-direction: row !important;
+    width: 100%;
+}
+.row1{
+    width:50%;
+}
+.row2{
+    width :50%;
+    margin-top: 25px;
+}
+/* =============PERSONAL PROFILE============ */
+input.ip{
+    font-size: 12px;
+    margin: 4px 0px 0px 0px;
+}
+.area{
+    margin: 4px 0px 0px 0px;
+}
+input.ip-submit{
+    color:black;
+    font-size:15px;
+    background-color: lightgray;
+    border: 1px solid black;
+    padding: 2px 0px 2px 0px;
+    width: 85%;
+    margin: 2px 0px 2px 0px;
+}
+/* ----------------------------------------eof welcome--------------------------------------------------- */
 span.king{
     display: block;
     color: gold;
@@ -142,106 +280,4 @@ span.king{
     left: -10px;
     width:100%;
     padding:7px;
-}
-@media screen and (max-width : 900px) {
-    .wrapper{
-        display: block;
-        background-color: white ;
-        width : 80%;
-        margin: auto;
-        margin-top: 20px;
-        margin-bottom: 150px;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 15px 15px 10px black;
-        overflow: hidden;
-    }
-    .wrapper div{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-    }
-    .logo{
-        font-size:50px;
-    }
-    .company{
-        font-size:40px;
-        background: -moz-linear-gradient(to bottom);
-    }
-    .tag{
-        font-size: 15px;
-    }
-    .started{
-        font-size: 15px;
-        margin-top: 20px;
-    }
-    .wrapper .hr1{
-        width: 95%;
-    }
-    div .signin-form{
-        display: none;
-    }
-    div .signup-form{
-        display: none;
-    }
-    input[type='text']{
-        font-size: 15px;
-        margin: 5px 0px 0px 0px;
-        padding: 5px 10px 5px 10px;
-    }
-    input[type='password']{
-        font-size: 15px;
-        margin: 5px 0px 0px 0px;
-        padding: 5px 10px 5px 10px;
-    }
-    input[type='submit']{
-        font-size: 10px;
-        margin: 10px 0px 0px 0px;
-        padding: 10px 20px;
-        border: none;
-        background-color: #2b0036;
-        color: white;
-        cursor: pointer;
-        opacity: 0.7;
-    }
-    input[type="submit"]:hover{
-        opacity: 1;
-    }
-    div.options{
-        margin-top: 30px;
-        display: flex;
-        flex-direction: row;
-    }
-    .options div{
-        margin : 2.5px;
-        cursor: pointer;
-        font-size: 15px;
-        padding: 10px 15px;
-    }
-    .options .signup{
-        background-color: black;
-        color : white;
-    }
-    .options .signin{
-        border:2px solid black;
-    }
-    .options .signup:hover{
-        color:purple;
-    }
-    .options .signin:hover{
-        color: purple;
-        border: 2px solid purple;
-    }
-    span.king{
-        display: block;
-        color: gold;
-        font-size: 15px;
-        font-weight: 900;
-        text-align: center;
-        bottom: -30px;
-        position: relative;
-        width:100%;
-        padding:7px;
-    }
 }
