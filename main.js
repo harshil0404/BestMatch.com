@@ -48,22 +48,25 @@ function userview_display(tf){
     if(tf == 1){
         def.style.display = 'none';
         def.classList.add('close');
-        // console.log(adv);
         if(advgo){
             advgo.style.display = 'none';
-            advgo.classList.add('close');
+            if(!advgo.classList.contains('close')){
+                advgo.classList.add('close');
+            }
         }
         user.style.display = 'block';
         user.classList.remove('close');
     }
-    else if(tf == 0){
+    else{
         def.style.display = 'block';
         def.classList.remove('close');
         user.style.display = 'none';
         user.classList.add('close');
         if(advgo){
             advgo.style.display = 'none';
-            advgo.classList.add('close');
+            if(!advgo.classList.contains('close')){
+                advgo.classList.add('close');
+            }        
         }
     }
 }
@@ -118,14 +121,40 @@ function edit_save(tf){
     if(tf == 1){
         submit.value = 'Save Changes';
         read.forEach((i)=>{
-            i.removeAttribute('readonly');
+            if(i.type == 'color'){
+                i.removeAttribute('disabled');
+            }
+            else{
+                i.removeAttribute('readonly');
+            }
         });
     }
     else{
         submit.value = 'Edit Profile';
         read.forEach((i)=>{
-            i.setAttribute('readonly','readonly');
+            if(i.type == 'color'){
+                i.setAttribute('disabled','disabled');
+            }
+            else{
+                i.setAttribute('readonly','readonly');
+            }
         });
+    }
+}
+function profile_click(){
+    let my = $('.my-bio');
+    let user = $('.user-bio');
+    if(my.classList.contains('open')){
+        my.classList.remove('open');
+        my.style.display = 'none';
+        user.classList.add('open');
+        user.style.display = 'block';
+    }
+    else{
+        my.classList.add('open');
+        my.style.display = 'block';
+        user.classList.remove('open');
+        user.style.display = 'none';
     }
 }
 // function edit(){

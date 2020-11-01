@@ -140,6 +140,8 @@ input[type="search"]{
     font-size: 30px;
     margin: 5px 10px 0px 0px;
     text-transform: capitalize;
+    color:black;
+    font-weight: 550;
 }
 .logout-btn{
     float:right;
@@ -165,6 +167,7 @@ input[type="search"]{
     display: block;
     margin-top: 25px;
     max-width: 45%;
+    overflow: auto;
 }
 .user-search{
     margin-top: 25px;
@@ -175,12 +178,12 @@ input[type="search"]{
 /* ==============start card================== */
 .card{
     display: block;
-    padding: 10px;
     margin-bottom: 10px !important;
     /* border-radius:8px; */
-    padding: 20px 40px 20px 20px;
+    padding: 20px 60px 20px 20px;
     width:70%;
     box-shadow: 5px 5px 5px black;
+    margin-right: 20px;
     transition:0.2s;
 }
 .card:hover{
@@ -250,13 +253,32 @@ input[type="search"]{
     width :50%;
     margin-top: 25px;
 }
+.none{
+    display: none;
+}
 /* =============PERSONAL PROFILE============ */
 input.ip{
     font-size: 12px;
     margin: 4px 0px 0px 0px;
+    padding:2px 4px 2px 2px;
+    /* float: left; */
+}
+label.ip{
+    float: left;
+    font-size: 15px;
+    margin-left: 15px;
+    margin-top: 4px;
+    font-weight: 550;
 }
 .area{
     margin: 4px 0px 0px 0px;
+}
+i.eye{
+    font-size: 20px;
+    /* padding-top: 6px; */
+}
+form.profile-form{
+    margin:15px 0px 15px 0px !important;
 }
 input.ip-submit{
     color:black;
@@ -264,8 +286,31 @@ input.ip-submit{
     background-color: lightgray;
     border: 1px solid black;
     padding: 2px 0px 2px 0px;
-    width: 85%;
+    width: 95%;
     margin: 2px 0px 2px 0px;
+    color: black;
+    opacity: 1;
+}
+.prof-header{
+    display: flex;
+    flex-direction: column;
+}
+input.pass{
+    margin:4px 5px 15px 0px;
+}
+.prof-name{
+    font-size: 35px;
+    text-align: left;
+    margin:2px 0px 0px 15px;
+    text-transform: capitalize;
+    font-weight: 700;
+}
+.prof-email{
+    text-align: left;
+    font-size: 15px;
+    margin:0px 0px 5px 15px;
+    color:grey;
+
 }
 /* ----------------------------------------eof welcome--------------------------------------------------- */
 span.king{

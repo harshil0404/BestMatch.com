@@ -4,6 +4,16 @@ require_once 'session_s.php';
 if(!isset($_SESSION["username"])){
     header("Location: session_d.php");
 }
+if(isset($_POST['edit-save'])){
+    if($_POST['edit-save'] == 'Save Changes'){
+        $_SESSION["fname"] = $_POST["upd-fname"];
+        $_SESSION["lname"] = $_POST["upd-lname"];
+        $_SESSION["color"] = $_POST["upd-color"];
+        $_SESSION['initials'] = $_SESSION["fname"][0].$_SESSION["lname"][0];
+        $_SESSION['temp-username'] = $_SESSION['username'];
+        $_SESSION["username"] = $_POST['upd-username'];
+    }
+}
 
 ?>
 
@@ -22,7 +32,7 @@ if(!isset($_SESSION["username"])){
 
 ?>
 <body>
-    <div class="wrapper" style="max-height:700px;overflow:auto;"> 
+    <div class="wrapper" style="max-height:700px;overflow:auto;padding:50px 75px 50px 75px;"> 
         <nav>
             
             <form action='welcome.php' method="POST" style="display:inline;" contenteditable="false">
@@ -35,9 +45,9 @@ if(!isset($_SESSION["username"])){
             <span class="adv-search-btn" onclick="advanced_search()"><i class="fab fa-searchengin" title="Advanced search" ></i></span>
             <a href="session_d.php" class="logout-btn" title="Logout"><i class="fas fa-power-off"></i></a>
             <?php
-            echo "<span class='profile' title='Personal Profile'";
+            echo "<span class='profile' onclick='profile_click()' title='Personal Profile'";
             echo "style="."background-color:".$_SESSION['color'].";text-transform:uppercase".">".$_SESSION['initials']."</span>";
-            echo "<span class='namehead'>".$_SESSION['fname'].' '.$_SESSION['lname']."</span>";
+            echo "<a href='welcome.php'><span class='namehead'>".$_SESSION['fname'].' '.$_SESSION['lname']."</span></a>";
             ?>
         </nav>
         <hr style="color:black;">
@@ -63,22 +73,21 @@ if(!isset($_SESSION["username"])){
                 <?php require_once 'defaultview.php' ;?>
             </div>
             <!-- --------------------------------------User Search VIEW------------------------------------ -->
-            <div class="user-search" style="display:none;">
+            <div class="user-search row1 close" style="display:none;">
                 <?php
-                    if(isset($_POST['searchresult']) && trim($_POST["searchresult"])){
-                        // echo $_POST["searchresult"];
+                    if(isset($_POST["searchresult"])){
                         echo "<script>userview_display(1);</script>";
+                        require_once 'userview.php';
+
                     }
-                    else if(!isset($_POST['adv-go'])){
+                    else{
                         echo "<script>userview_display(0);</script>";
                     }
-                    require_once 'userview.php';
                 ?>
             </div>
             <!-- -----------------------------------ADVANCED SEARCH VIEW -------------------------------- -->
-            <div class="advanced-search" style="display:none;">
+            <div class="advanced-search row1 close" style="display:none;">
                 <?php
-                    // echo "ysssssssssssssssssss";
                     if(isset($_POST['adv-go'])){
                         if(trim($_POST['s-age']) || isset($_POST['s-gender']) || trim($_POST['s-location'])){
                             echo "<script>advanced_display(1);</script>";
@@ -91,10 +100,14 @@ if(!isset($_SESSION["username"])){
                     } 
                 ?>
             </div>
-            <div class="someone-bio row2" style="display:none;">
-
+            <div class="user-bio row2 open" style="display:block;">
+                <?php
+                    if(isset($_GET['aboutuser'])){
+                        require_once 'user_profile.php';
+                    }
+                ?>
             </div>
-            <div class="my-bio row2 open">
+            <div class="my-bio row2" style="display:none;">
                 <?php require_once 'personal_profile.php' ;
                     if(isset($_POST['edit-save'])){
                         if($_POST['edit-save'] == 'Edit Profile'){

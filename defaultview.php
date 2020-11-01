@@ -12,7 +12,7 @@
         $disp_gen = 'others';
     }
 
-    $sql_default = "SELECT firstname, lastname, bio, email, color, profession FROM biodata WHERE gender = '$disp_gen'";
+    $sql_default = "SELECT firstname, lastname, bio, email, color, profession, username FROM biodata WHERE gender = '$disp_gen'";
     $res = $conn->query($sql_default);
     // print_r($res);
     // echo "yssssssssssssss";
@@ -27,7 +27,7 @@
             echo "<div class='card'>";
             echo "<div class='card-row1'>";
             echo "<div class='card-p1'>";
-            echo "<span class='search-initials' style="."'background-color : ".$row['color'].";'>$initials</span>";
+            echo "<a href='welcome.php?aboutuser=".$row['username']."'><span class='search-initials' style="."'color:black;background-color : ".$row['color'].";'>$initials</span></a>";
             echo "</div>";
             echo "<div class='card-p2'>";
             echo "<span class='card-name'> $name </span>";
