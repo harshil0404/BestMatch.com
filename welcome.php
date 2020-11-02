@@ -5,6 +5,8 @@ if(!isset($_SESSION["username"])){
     header("Location: session_d.php");
 }
 if(isset($_POST['edit-save'])){
+    $_SESSION['for-userbio'] = 'none';
+    $_SESSION['for-mybio'] = 'block';
     if($_POST['edit-save'] == 'Save Changes'){
         $_SESSION["fname"] = $_POST["upd-fname"];
         $_SESSION["lname"] = $_POST["upd-lname"];
@@ -13,6 +15,79 @@ if(isset($_POST['edit-save'])){
         $_SESSION['temp-username'] = $_SESSION['username'];
         $_SESSION["username"] = $_POST['upd-username'];
     }
+    // else{
+    //     $_SESSION['edit-save'] = $_POST['edit-save'];
+    // }
+}
+if(isset($_POST['user-go'])){
+    $_SESSION['for-userbio'] = 'none';
+    $_SESSION['for-mybio'] = 'block';
+    if(isset($_SESSION['adv-go'])){
+        unset($_SESSION['adv-go']);
+    }
+    $_SESSION['issetview'] = 1 ;
+    // echo 'specificuser'.$_SESSION['issetview'];
+    $_SESSION['user-go'] = $_POST['user-go'];
+    $_SESSION['searchresult'] = $_POST['searchresult'];
+    $_SESSION['for-default'] = 'none';
+    $_SESSION['for-user'] = 'block';
+    $_SESSION['for-advanced'] = 'none';
+}
+elseif(isset($_POST['adv-go'])){
+    $_SESSION['for-userbio'] = 'none';
+    $_SESSION['for-mybio'] = 'block';
+    if(isset($_SESSION['user-go'])){
+        unset($_SESSION['user-go']);
+    }
+    $_SESSION['issetview'] = 2 ;
+    // echo 'specificadv'.$_SESSION['issetview'];
+
+    $_SESSION['adv-go'] = $_POST['adv-go'];
+    $_SESSION['for-default'] = 'none';
+    $_SESSION['for-user'] = 'none';
+    $_SESSION['for-advanced'] = 'block';
+    $_SESSION['s-age'] =  $_POST['s-age'];
+    if(isset($_POST['s-gender'])){
+    $_SESSION['s-gender'] = $_POST['s-gender'];
+    }
+    $_SESSION['s-location'] = $_POST['s-location'];
+}
+
+elseif(isset($_GET['aboutuser'])){
+    $_SESSION['for-userbio'] = 'block';
+    $_SESSION['for-mybio'] = 'none';
+    if(isset($_SESSION['issetview'])){
+        // echo 'yssssssssss'.$_SESSION['issetview'];
+        if($_SESSION['issetview'] == 0){
+            $_SESSION['for-default'] = 'block';
+            $_SESSION['for-user'] = 'none';
+            $_SESSION['for-advanced'] = 'none';
+        }
+        elseif($_SESSION['issetview'] == 1){
+            $_SESSION['for-default'] = 'none';
+            $_SESSION['for-user'] = 'block';
+            $_SESSION['for-advanced'] = 'none';
+        }
+        elseif($_SESSION['issetview'] == 2){
+            $_SESSION['for-default'] = 'none';
+            $_SESSION['for-user'] = 'none';
+            $_SESSION['for-advanced'] = 'block';
+        }
+    }
+}
+else{
+    if(isset($_SESSION['user-go'])){
+        unset($_SESSION['user-go']);
+    }
+    if(isset($_SESSION['adv-go'])){
+        unset($_SESSION['adv-go']);
+    }
+    $_SESSION['issetview'] = 0;
+    $_SESSION['for-default'] = 'block';
+    $_SESSION['for-user'] = 'none';
+    $_SESSION['for-advanced'] = 'none';
+    $_SESSION['for-userbio'] = 'none';
+    $_SESSION['for-mybio'] = 'block';
 }
 
 ?>
@@ -37,7 +112,7 @@ if(isset($_POST['edit-save'])){
             
             <form action='welcome.php' method="POST" style="display:inline;" contenteditable="false">
                 <input class="search-bar" type="search" onclick="clicked_search()" name="searchresult" placeholder="enter name or username." required>
-                <input type="submit" 
+                <input type="submit" name='user-go'
                 style="font-size:28px;padding:3px 4px 8px 4px;color:black;
                 background-color:white;margin:0px;font-weight:700;border:2px solid grey;" value="Go" />
             </form>
@@ -53,6 +128,7 @@ if(isset($_POST['edit-save'])){
         <hr style="color:black;">
         <div class="adv-search" style="display:none;">
             <h4 style="margin:0px 0px 10px 0px">Advanced Search</h4>
+
             <form action="welcome.php" method="POST">
                 <input style="font-size:15px;padding:5px 0px 5px 10px;border-radius:5px;" type="number" min="18" name="s-age" placeholder="Age">
                 <div class="radio" style="margin:10px 0 10px 0 ;">
@@ -66,49 +142,56 @@ if(isset($_POST['edit-save'])){
                 <input style="font-size:15px;padding:5px 0px 5px 10px;border-radius:5px;margin:0;" type="text" name="s-location" placeholder="location"><br>
                 <input style="font-size:15px;padding:10px 20px 10px 20px;margin-top:10px;background-color:black;" name="adv-go" type="submit" value="Go">
             </form>
+
         </div>
         <div class='display-flex'>
             <!-- -------------------------------------DEFAULT VIEW------------------------------------ -->
-            <div class="default-search row1">
+            <div class="default-search row1" <?php echo "style='display:".$_SESSION['for-default']."'"; ?>>
                 <?php require_once 'defaultview.php' ;?>
             </div>
             <!-- --------------------------------------User Search VIEW------------------------------------ -->
-            <div class="user-search row1 close" style="display:none;">
+            <div class="user-search row1 close" <?php echo "style='display:".$_SESSION['for-user']."'"; ?>>
                 <?php
-                    if(isset($_POST["searchresult"])){
-                        echo "<script>userview_display(1);</script>";
-                        require_once 'userview.php';
+                    if(isset($_SESSION["user-go"])){
+                        if(!trim($_SESSION['searchresult'])){
+                            echo '<script>alert("Enter a valid input...")</script>';
+                            $_SESSION['issetview'] = 0;
+                            unset($_SESSION['user-go']);
+                            echo '<script>location.replace("http://localhost/php/BestMatch.com/welcome.php");</script>';
+                        }
+                        else {
+                            $_SESSION['issetview'] = 1 ;
+                            require_once 'userview.php';   
+                        }
+                    }
+                    // echo $_SESSION['default-result'];
 
-                    }
-                    else{
-                        echo "<script>userview_display(0);</script>";
-                    }
                 ?>
             </div>
             <!-- -----------------------------------ADVANCED SEARCH VIEW -------------------------------- -->
-            <div class="advanced-search row1 close" style="display:none;">
+            <div class="advanced-search row1 close" <?php echo "style='display:".$_SESSION['for-advanced']."'"; ?>>
                 <?php
-                    if(isset($_POST['adv-go'])){
-                        if(trim($_POST['s-age']) || isset($_POST['s-gender']) || trim($_POST['s-location'])){
-                            echo "<script>advanced_display(1);</script>";
-                            require_once 'advancedview.php';
+                    if(isset($_SESSION['adv-go'])){
+                        if(trim($_SESSION['s-age']) || isset($_SESSION['s-gender']) || trim($_SESSION['s-location'])){
+                            $_SESSION['issetview'] = 2 ;
+                            require 'advancedview.php';
                         }
                         else{
                             echo '<script>;alert("Please fill atleast one field...");</script>';
-                            echo "<script>advanced_display(0);</script>";
                         }
-                    } 
+                    }
                 ?>
             </div>
-            <div class="user-bio row2 open" style="display:block;">
+            <div class="user-bio row2" <?php echo "style='display:".$_SESSION['for-userbio']."'"; ?>>
                 <?php
                     if(isset($_GET['aboutuser'])){
                         require_once 'user_profile.php';
                     }
                 ?>
             </div>
-            <div class="my-bio row2" style="display:none;">
-                <?php require_once 'personal_profile.php' ;
+            <div class="my-bio row2 " <?php echo "style='display:".$_SESSION['for-mybio']."'"; ?>>
+                <?php 
+                    require_once 'personal_profile.php' ;
                     if(isset($_POST['edit-save'])){
                         if($_POST['edit-save'] == 'Edit Profile'){
                             echo '<script>edit_save(1);</script>';

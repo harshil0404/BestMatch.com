@@ -1,6 +1,7 @@
 
-<?php
+<?php 
     require 'model.php';
+    $_SESSION['issetview'] = 0 ;
     
     if($_SESSION["gender"] == 'male'){
         $disp_gen = 'female';
@@ -14,13 +15,14 @@
 
     $sql_default = "SELECT firstname, lastname, bio, email, color, profession, username FROM biodata WHERE gender = '$disp_gen'";
     $res = $conn->query($sql_default);
-    // print_r($res);
-    // echo "yssssssssssssss";
     if($res){
         while($row = $res->fetch_assoc()){
             $like = 'grey';
             if($row['profession'] == NULL){
                 $row['profession'] = 'Not Provided';
+            }
+            if(strtolower($row['username']) == strtolower( $_SESSION['username'])){
+                continue;
             }
             $initials = $row['firstname'][0] . $row['lastname'][0] ;
             $name = $row['firstname'] .' '. $row['lastname'] ;
@@ -44,7 +46,6 @@
     }
     else{
         echo '<script>alert("No search result found...")</script>';
-
     }
 
 

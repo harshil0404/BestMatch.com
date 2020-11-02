@@ -144,33 +144,10 @@ function edit_save(tf){
 function profile_click(){
     let my = $('.my-bio');
     let user = $('.user-bio');
-    if(my.classList.contains('open')){
-        my.classList.remove('open');
-        my.style.display = 'none';
-        user.classList.add('open');
-        user.style.display = 'block';
-    }
-    else{
+    if(!my.classList.contains('open') ){
         my.classList.add('open');
         my.style.display = 'block';
         user.classList.remove('open');
         user.style.display = 'none';
     }
 }
-// function edit(){
-//     let text = $('.tt');
-//     let i = $('i');
-//     if(text.getAttribute('readonly')){
-//         text.removeAttribute('readonly');
-//         // console.log("ysssssssssss");
-//         text.style.color = 'red';
-//         i.style.color = 'red';
-//     }
-//     else{
-//         text.setAttribute('readonly','readonly');
-//         text.style.color = 'black';
-//         i.style.color = 'black';
-
-
-//     }
-// }

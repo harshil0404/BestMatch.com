@@ -1,8 +1,8 @@
 
 <?php
     require_once 'model.php';
-
-    $search = $_POST["searchresult"];
+    
+    $search = $_SESSION["searchresult"];
 
     $sql_userview = "SELECT firstname, lastname, bio, email, color, profession, username FROM biodata WHERE firstname LIKE '%$search%'
                      OR lastname LIKE '%$search%' OR username LIKE '%$search%'";
@@ -12,16 +12,18 @@
     $temp = 0;
     if($res->num_rows > 0){
         while($row = $res->fetch_assoc()){
+            
             if($row['profession'] == NULL){
                 $row['profession'] = 'Not Provided';
             }
             if($row['bio'] == NULL){
                 $row['bio'] = 'Not Provided';
             }
-            if($row['username'] === $_SESSION['username']){
+            if(strtolower($row['username']) == strtolower( $_SESSION['username'])){
                 $temp = 1;
                 continue;
             }
+            
             $initials = $row['firstname'][0] . $row['lastname'][0] ;
             $name = $row['firstname'] .' '. $row['lastname'] ;
             echo "<div class='card'>";
@@ -42,10 +44,19 @@
             echo"</div>";
         }
     }
-    if($temp == 1 && $res->num_rows == 1){
-
+    else{
         echo '<script>alert("No search result found...")</script>';
-        echo '<script>;userview_display(0);</script>';
+        $_SESSION['issetview'] = 0;
+        unset($_SESSION['user-go']);
+        echo '<script>location.replace("http://localhost/php/BestMatch.com/welcome.php");</script>';
+
+    }
+    if($temp == 1 && $res->num_rows == 1){
+        echo '<script>alert("No search result found...")</script>';
+        $_SESSION['issetview'] = 0;
+        unset($_SESSION['user-go']);
+        echo '<script>location.replace("http://localhost/php/BestMatch.com/welcome.php");</script>';
+
     }
 
 

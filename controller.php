@@ -3,10 +3,12 @@ require_once 'model.php';
 require_once 'session_s.php';
 
 if(isset($_POST["signup"])){
-    // $uniqueName = $_POST['username'].$_POST['phone'][3];
-    $sql = "INSERT INTO biodata (firstname, lastname,email,phone,dob,gender,color,username,password)
-    VALUES ('".$_POST["fname"]."','".$_POST["lname"]."','".$_POST["email"]."','".$_POST["phone"]."','".$_POST["dob"]."','".$_POST["gender"]."','".$_POST["color"]."','".$_POST["username"]."','".$_POST["pass"]."')";
-    $createTable = "CREATE TABLE ".$_POST['username'].$_POST['phone'][4]." ( likers varchar (50)) ";
+    $tablename = $_POST['username'].$_POST['phone'][4];
+    $sql = "INSERT INTO biodata (firstname, lastname,email,phone,dob,gender,color,username,password,tablename)
+    VALUES ('".$_POST["fname"]."','".$_POST["lname"]."','".$_POST["email"]."','".$_POST["phone"]."',
+    '".$_POST["dob"]."','".$_POST["gender"]."','".$_POST["color"]."','".$_POST["username"]."',
+    '".$_POST["pass"]."','".$tablename."')";
+    $createTable = "CREATE TABLE ".$tablename." ( likers varchar (50)) ";
     if ($conn->query($sql) === TRUE && $conn->query($createTable) === TRUE) {
         header("Location: http://localhost/php/BestMatch.com/view.php");
 
@@ -30,7 +32,7 @@ if(isset($_POST["signin"])){
                 $_SESSION["username"] = $user;
                 $_SESSION["fname"] = $row["firstname"];
                 $_SESSION["lname"] = $row["lastname"];
-                $_SESSION["email"] = $row["email"];
+                $_SESSION["email"] = $row["email"]; 
                 $_SESSION["phone"] = $row["phone"];
                 $_SESSION["dob"] = $row["dob"];
                 $_SESSION["gender"] = $row["gender"];

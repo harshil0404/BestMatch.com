@@ -164,7 +164,6 @@ input[type="search"]{
     display: none;
 }
 .default-search{
-    display: block;
     margin-top: 25px;
     max-width: 45%;
     overflow: auto;
@@ -175,7 +174,7 @@ input[type="search"]{
 .advanced-search{
     margin-top: 25px;
 }
-/* ==============start card================== */
+/* ============== SEARCH RESULT card================== */
 .card{
     display: block;
     margin-bottom: 10px !important;
@@ -240,7 +239,7 @@ input[type="search"]{
     margin: auto 0;
     text-transform: uppercase;
 }
-/* ==============display flex============= */
+/* ==============display flex ============= */
 .display-flex {
     display: flex;
     flex-direction: row !important;
@@ -261,7 +260,6 @@ input.ip{
     font-size: 12px;
     margin: 4px 0px 0px 0px;
     padding:2px 4px 2px 2px;
-    /* float: left; */
 }
 label.ip{
     float: left;
@@ -275,7 +273,6 @@ label.ip{
 }
 i.eye{
     font-size: 20px;
-    /* padding-top: 6px; */
 }
 form.profile-form{
     margin:15px 0px 15px 0px !important;
@@ -311,6 +308,28 @@ input.pass{
     margin:0px 0px 5px 15px;
     color:grey;
 
+}
+/* ================== USER BIO ======================= */
+.ub-username{
+    text-align: left;
+    margin:5px 0px 10px 15px;
+    font-size: 20px;
+    font-family: cursive;
+}
+p.ub-line{
+    display: flex;
+    flex-direction: row;
+}
+label.ub-fields{
+    font-size: 16px;
+    font-weight: 550;
+    margin: 0px 0px 0px 15px; 
+}
+span.ub-value{
+    margin: 0px 0px 0px 5px; 
+}
+.user-bio-card{
+    padding: 10px 0px;
 }
 /* ----------------------------------------eof welcome--------------------------------------------------- */
 span.king{

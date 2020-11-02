@@ -89,8 +89,8 @@
         echo "<input type='submit' class='ip-submit' value='Edit Profile' name='edit-save' /><br>";
         echo "<label class='ip'>Firstname : </label><input name='upd-fname' class='inp-readonly ip' type='text' value='".$row['firstname']."' readonly='readonly' required/><br>";
         echo "<label class='ip'>Lastname  : </label><input name='upd-lname' class='inp-readonly ip' type='text' value='".$row['lastname']."' readonly='readonly' required/><br>";
-        echo "<label class='ip'>E-mail : </label><input name='upd-email' class='inp-readonly ip' type='text' value='".$row['email']."' readonly='readonly' required/><br>";
-        echo "<label class='ip'>Phone  : </label><input name='upd-phone' class='inp-readonly ip' type='text' value='".$row['phone']."' readonly='readonly' required/><br>";
+        echo "<label class='ip'>E-mail : </label><input name='upd-email' class='inp-readonly ip' type='email' value='".$row['email']."' readonly='readonly' required/><br>";
+        echo "<label class='ip'>Phone  : </label><input name='upd-phone' class='inp-readonly ip'  pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}' type='tel' value='".$row['phone']."' readonly='readonly' required/><br>";
         echo "<label class='ip'>Profession : </label><input name='upd-prof' class='inp-readonly ip' type='text' value='".$pro_msg."' readonly='readonly' /><br>";
         echo "<label class='ip'>Profile Colour : </label><input name='upd-color' class='inp-readonly ip' type='color' value='".$row['color']."' disabled='disabled' /><br>";
         echo "<label class='ip'>Bio : </label><textarea name='upd-bio' class='area inp-readonly' rows='3' cols='35' readonly='readonly' >".$bio_msg."</textarea><br>";
