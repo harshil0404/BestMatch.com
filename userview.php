@@ -12,6 +12,16 @@
     $temp = 0;
     if($res->num_rows > 0){
         while($row = $res->fetch_assoc()){
+            $online = 'black';
+            $flag = 0;
+            $sql_onlinecheck = "SELECT * FROM online";
+            $online_query = $conn->query($sql_onlinecheck);
+            while($row_online = $online_query->fetch_assoc()){
+                if(strtolower($row_online['users']) == strtolower($row['username']) && $flag == 0){
+                    $flag = 1 ;
+                    $online = 'green';
+                }
+            }
             $like = 'grey';
             $sql_tablename = "SELECT * FROM ".$row['tablename'];
             $likes = $conn->query($sql_tablename);
@@ -35,11 +45,11 @@
             if(strtolower($row['username']) == strtolower( $_SESSION['username'])){
                 $temp = 1;
                 continue;
-            }
+            } 
             
             $initials = $row['firstname'][0] . $row['lastname'][0] ;
             $name = $row['firstname'] .' '. $row['lastname'] ;
-            echo "<div class='card'>";
+            echo "<div class='card' style='box-shadow:5px 5px 5px ".$online."'>";
             echo "<div class='card-row1'>";
             echo "<div class='card-p1'>";
             echo "<a href='welcome.php?aboutuser=".$row['username']."'><span class='search-initials' style="."'color:black;background-color : ".$row['color']."'>$initials</span></a>";

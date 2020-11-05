@@ -6,8 +6,9 @@ require_once 'session_s.php';
 
 if(isset($_POST['msg'])){
     // echo 'infunction';
+    $msgg = strval(trim($_POST['msg']));
     $sql_addmsg = "INSERT INTO chats (sender,receiver,msg) VALUES ( '".$_SESSION["username"]."',
-                  '".$_SESSION["currentbio"]."', '".$_POST['msg']."' )";
+                  '".$_SESSION["currentbio"]."', '".$msgg."' )";
     $res = $conn->query($sql_addmsg);
     // echo $sql_addmsg;
     if($res){
@@ -25,12 +26,9 @@ if(isset($_POST['load'])){
                 if(strtolower($row['receiver']) == strtolower($_SESSION['currentbio']) || strtolower($row['receiver']) == strtolower($_SESSION['username'])){
                     if(strtolower($row['sender']) == strtolower($_SESSION['currentbio'])){
                         $displayChats .= "<div class='dm leftshift'><span class='dm-name'>".$row['sender']."</span><span class='dm-msg'>".$row['msg']."</span><span class='dm-time'>".$row['time']."</span></div>";
-                        // $displayChats .= $row['msg'];
                     }
                     else{
                         $displayChats .= "<div class='dm rightshift'><span class='dm-name'>".$row['sender']."</span><span class='dm-msg'>".$row['msg']."</span><span class='dm-time'>".$row['time']."</span></div>";
-
-                        // $displayChats .= $row['msg'];
                     }
                 }
             }

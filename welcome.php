@@ -114,7 +114,7 @@ else{
     <title>Welcome @ BestMatch.com</title>
 </head>
 <script>
-// echo "<span class='like' id=""><i class='fas fa-thumbs-up' onclick='click_like(this)' style='color:".$like."'></i><span style='color:grey;margin-left:5px;' class='numlikes'>".$numlikes."</span></span>";
+    loadchat();
     $(document).ready(function(){
         $('.like').click(function(e){
             $.ajax({
@@ -127,41 +127,58 @@ else{
         });
     });
     $(document).ready(function(){
+        $('.likers').mouseenter(function(e){
+            $.ajax({
+                type: 'POST',
+                url: 'likes.php',
+                data: {viewlikes : 'true'},
+                success: function(data){
+                    // console.log(data);
+                    $('.likelist').html(data);
+                }
+            });
+        });
+        $('.user-bio').mouseleave(function(){
+            $('.likelist').html('');
+        })
+        // $('.likers').mouseleave(function(e){
+        //     $('.likelist').html('');
+        // });
+    });
+
+    $(document).ready(function(){
         $('#chatform').submit(function(e){
         e.preventDefault();
         if(e.target.children[0].value.trim()){
-            // console.log('ysssssssssssss');
             $.ajax({
                 type: 'POST',
                 url : "chats.php",
                 data: $('#chatform').serialize(),
                 success: function(data){
-                    // console.log(data);
+                    loadchat();
                 }
             })
-            loadchat();
             e.target.children[0].value = '';
+            send_opacity(0);
         }
         else{
             alert('Empty messages not allowed!!!');
         }
     });
     });
-    
+    $('.chat-title').click(function(){
+        loadchat();
+    })
     function loadchat(){
         $.ajax({
             type: 'POST',
             url : 'chats.php',
             data: {load: 'loadchat'},
             success: function(data){
-                console.log(data);
                 $('.chat-display').html(data);
             }
         });
     }
-    // $(document).ready(function(){
-        loadchat();
-    // })
 </script>
 <body>
     <div class="wrapper" style="max-height:700px;overflow:auto;padding:50px 75px 50px 75px;"> 
@@ -262,8 +279,8 @@ else{
             <div class="chats row2" <?php echo "style='display:".$_SESSION['for-chats']."'"; ?>>
                 <div class="chat-area">
                     <div class='chats'>
-                        <span class="chat-title">C H A T S</span>
-                        <span class="close-chat" ><i onclick='openchats(0)' class="fas fa-times"></i></span>
+                        <span class="chat-title" style='cursor:pointer'>C H A T S</span>
+                        <span class="close-chat" ><i onclick='openchats(0)' class="fas fa-times" title='Close'></i></span>
                     </div>
                     <div class="chat-box">
                         <div class="chat-header">

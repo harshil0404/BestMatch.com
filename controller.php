@@ -28,7 +28,8 @@ if(isset($_POST["signin"])){
         while($row = $result->fetch_assoc()){
             $orig_pass = $row["password"];
             if($orig_pass == $pass){
-
+                $sql_online = "INSERT INTO online values ('".$user."')";
+                $online_execution = $conn->query($sql_online);
                 $_SESSION["username"] = $user;
                 $_SESSION["fname"] = $row["firstname"];
                 $_SESSION["lname"] = $row["lastname"];

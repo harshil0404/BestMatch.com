@@ -166,7 +166,7 @@ input[type="search"]{
 .default-search{
     margin-top: 25px;
     max-width: 45%;
-    overflow: auto;
+    overflow: hidden;
 }
 .user-search{
     margin-top: 25px;
@@ -178,10 +178,8 @@ input[type="search"]{
 .card{
     display: block;
     margin-bottom: 10px !important;
-    /* border-radius:8px; */
     padding: 20px 60px 20px 20px;
     width:70%;
-    box-shadow: 5px 5px 5px black;
     margin-right: 20px;
     transition:0.2s;
 }
@@ -307,18 +305,55 @@ input.pass{
     font-size: 15px;
     margin:0px 0px 5px 15px;
     color:grey;
-
 }
 /* ================== USER BIO ======================= */
+.ub-header{
+    display: inline;
+}
+.ub-name{
+    float: left;
+    font-size: 35px;
+    margin:2px 0px 0px 15px;
+    text-transform: capitalize;
+    font-weight: 700;
+    position: sticky;
+}
+.ub-email{
+    float: left !important;
+    font-size: 15px;
+    margin:0px 0px 5px 15px;
+    color:grey;
+}
 .ub-username{
-    text-align: left;
+    float: left;
+    margin-right: auto;
     margin:5px 0px 10px 15px;
     font-size: 20px;
     font-family: cursive;
 }
+label.likers{
+    font-size: 25px !important;
+}
+.likers{
+    color: grey;
+    cursor: pointer;
+}
+.likers:hover{
+    color:#303030;
+}
+a.likersoptions{
+    text-decoration: none;
+    color: blueviolet;
+}
+.likersoptions:hover{
+    text-decoration: underline;
+    color: black;
+}
 p.ub-line{
     display: flex;
-    flex-direction: row;
+}
+p.likers{
+    display: inline !important;
 }
 label.ub-fields{
     font-size: 16px;
@@ -353,6 +388,9 @@ span.ub-value{
 .chats{
     display: inline;
 }
+.fa-times:hover{
+    color: red;
+}
 .chat-title{
     font-size:30px;
     color:white;
@@ -384,7 +422,7 @@ input.chat-send{
     float:right !important;
     position: relative!important;
     font-size:20px !important;
-    padding:4px 8px 4px 8px !important;
+    padding:4px 18px 4px 18px !important;
     background-color:#28fc03 !important;
     margin: 0px 20px 0px 0px !important;
 }
@@ -411,6 +449,15 @@ input.chat-send{
     margin-left: auto;
 }
 .rightshift > .dm-name{
+    margin-left: auto;
+}
+.rightshift > .dm-msg{
+    text-align: left;
+}
+.leftshift > .dm-msg{
+    text-align: left;
+}
+.leftshift > .dm-time{
     margin-left: auto;
 }
 .dm-name{

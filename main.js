@@ -147,11 +147,14 @@ function edit_save(tf){
 function profile_click(){
     let my = $$$('.my-bio');
     let user = $$$('.user-bio');
+    let chats = $$$('.chats');
+
     if(!my.classList.contains('open') ){
         my.classList.add('open');
         my.style.display = 'block';
         user.classList.remove('open');
         user.style.display = 'none';
+        chats.style.display = 'none';
     }
 }
 function openchats(tf){
@@ -166,12 +169,15 @@ function openchats(tf){
         user.style.display = 'block';
     }
 }
-function send_opacity(){
+function send_opacity(tf = 1){
     let msg = $$$('.chat-msg');
     let text = msg.value ;
     let send = $$$('.chat-send');
     if(text.trim()){
         send.style.opacity = 1;
+    }
+    else if(tf == 0){
+        send.style.opacity = 0.5;
     }
     else{
         send.style.opacity = 0.5;
