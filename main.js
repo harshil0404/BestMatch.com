@@ -1,8 +1,8 @@
-let $ = (ele) => document.querySelector(ele);
+let $$$ = (ele) => document.querySelector(ele);
  
 function signin_display(){
-    let sup = $('.signup-form');
-    let sin = $('.signin-form');
+    let sup = $$$('.signup-form');
+    let sin = $$$('.signin-form');
     if(sup.classList.contains('open')){
         sup.classList.remove('open');
         sup.style.display = 'none';
@@ -12,8 +12,8 @@ function signin_display(){
     // console.log(sin.classList);
 }
 function signup_display(){
-    let sup = $('.signup-form');
-    let sin = $('.signin-form');
+    let sup = $$$('.signup-form');
+    let sin = $$$('.signin-form');
     if(sin.classList.contains('open')){
         sin.classList.remove('open');
         sin.style.display = 'none';
@@ -23,7 +23,7 @@ function signup_display(){
     sup.classList.add('open');
 }
 function advanced_search(){
-    let adv = $('.adv-search');
+    let adv = $$$('.adv-search');
     if(adv.classList.contains('open')){
         adv.classList.remove('open');
         adv.style.display = 'none';
@@ -34,7 +34,7 @@ function advanced_search(){
     adv.classList.add('open');
 }
 function clicked_search(){
-    let adv = $('.adv-search');
+    let adv = $$$('.adv-search');
     if(adv.classList.contains('open')){
         adv.classList.remove('open');
         adv.style.display = 'none';
@@ -42,9 +42,9 @@ function clicked_search(){
     }
 }
 function userview_display(tf){
-    let def = $('.default-search');
-    let user = $('.user-search');
-    let advgo = $('.advanced-search');
+    let def = $$$('.default-search');
+    let user = $$$('.user-search');
+    let advgo = $$$('.advanced-search');
     if(tf == 1){
         def.style.display = 'none';
         def.classList.add('close');
@@ -71,9 +71,9 @@ function userview_display(tf){
     }
 }
 function advanced_display(tf){
-    let def = $('.default-search');
-    let user = $('.user-search');
-    let advgo = $('.advanced-search');
+    let def = $$$('.default-search');
+    let user = $$$('.user-search');
+    let advgo = $$$('.advanced-search');
     if(tf == 1){
         def.style.display = 'none';
         def.classList.add('close');
@@ -94,16 +94,19 @@ function advanced_display(tf){
     }
 }
 function click_like(e){
+    let likes = parseInt(e.parentElement.children[1].textContent);
     if(e.style.color == 'blue'){
         e.style.color = 'grey';
+        e.parentElement.children[1].textContent = likes - 1;
     }
     else{
         e.style.color = 'blue';
+        e.parentElement.children[1].textContent = likes + 1;
     }
 }
 function flip_eye(){
-    let eye = $('.eye');
-    let pass = $('.pass');
+    let eye = $$$('.eye');
+    let pass = $$$('.pass');
     if(eye.classList.contains('fa-eye-slash')){
         eye.classList.remove('fa-eye-slash');
         eye.classList.add('fa-eye');
@@ -116,7 +119,7 @@ function flip_eye(){
     }
 }
 function edit_save(tf){
-    let submit = $('.ip-submit');
+    let submit = $$$('.ip-submit');
     let read = document.querySelectorAll('.inp-readonly');
     if(tf == 1){
         submit.value = 'Save Changes';
@@ -142,12 +145,36 @@ function edit_save(tf){
     }
 }
 function profile_click(){
-    let my = $('.my-bio');
-    let user = $('.user-bio');
+    let my = $$$('.my-bio');
+    let user = $$$('.user-bio');
     if(!my.classList.contains('open') ){
         my.classList.add('open');
         my.style.display = 'block';
         user.classList.remove('open');
         user.style.display = 'none';
     }
+}
+function openchats(tf){
+    let chats = $$$('.chats');
+    let user = $$$('.user-bio');
+    if(tf == 1){
+        chats.style.display = 'block';
+        user.style.display = 'none';
+    }
+    else{
+        chats.style.display = 'none';
+        user.style.display = 'block';
+    }
+}
+function send_opacity(){
+    let msg = $$$('.chat-msg');
+    let text = msg.value ;
+    let send = $$$('.chat-send');
+    if(text.trim()){
+        send.style.opacity = 1;
+    }
+    else{
+        send.style.opacity = 0.5;
+    }
+    // console.log(msg.value);
 }

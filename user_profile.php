@@ -1,10 +1,10 @@
-<?php
+<?php 
     require_once 'model.php';
 
     $sql_userbio = "SELECT * FROM biodata WHERE username = '".$_GET["aboutuser"]."'";
     $userbio = $conn->query($sql_userbio);
+
     while($row = $userbio->fetch_assoc()){
-        
         if($row['bio'] == NULL){
             $bio_msg = 'Not Available';
         }
@@ -36,8 +36,8 @@
             $country_msg = $row['country'];
         }
         echo "<div style=' box-shadow: 5px 5px 5px ".$row["color"]."' class='user-bio-card'>";
-        echo "<div style = 'color: ".$row["color"]."' class='ub-username'>".$row['username']."</div>";
-        echo "<div style='text-shadow:3px 3px 3px ".$row["color"]."' class='ub-name prof-name'>".$row['firstname']." ".$row['lastname']."</div>";
+        echo "<div style = 'color: ".$row["color"]."' class='ub-username'>".$row['username']."<i onclick='openchats(1)' style='float:right;color:#303030;cursor:pointer;font-size:40px;margin-right:20px;' class='fas fa-comment-dots'></i></div>";
+        echo "<div style='text-shadow:4px 4px 4px ".$row["color"]."' class='ub-name prof-name'>".$row['firstname']." ".$row['lastname']."</div>";
         echo "<div class='ub-email prof-email'>".$row['email']."</div><hr>";
         echo "<p class='ub-line'><label class='ub-fields'>About Me :</label><textarea rows='3' cols='35' class='ub-bio' disabled >".$bio_msg."</textarea></p>";
         echo "<p class='ub-line'><label class='ub-fields'>Gender : </label>"."<span class = 'ub-value'>".$row['gender'].'</span></p>';

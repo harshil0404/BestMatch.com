@@ -4,8 +4,11 @@ require_once 'session_s.php';
 if(!isset($_SESSION["username"])){
     header("Location: session_d.php");
 }
+$flag = 0;
 if(isset($_POST['edit-save'])){
+    $flag = 1;
     $_SESSION['for-userbio'] = 'none';
+    $_SESSION['for-chats'] = 'none';
     $_SESSION['for-mybio'] = 'block';
     if($_POST['edit-save'] == 'Save Changes'){
         $_SESSION["fname"] = $_POST["upd-fname"];
@@ -15,12 +18,11 @@ if(isset($_POST['edit-save'])){
         $_SESSION['temp-username'] = $_SESSION['username'];
         $_SESSION["username"] = $_POST['upd-username'];
     }
-    // else{
-    //     $_SESSION['edit-save'] = $_POST['edit-save'];
-    // }
 }
 if(isset($_POST['user-go'])){
+    unset($_SESSION['currentbio']);
     $_SESSION['for-userbio'] = 'none';
+    $_SESSION['for-chats'] = 'none';
     $_SESSION['for-mybio'] = 'block';
     if(isset($_SESSION['adv-go'])){
         unset($_SESSION['adv-go']);
@@ -34,7 +36,9 @@ if(isset($_POST['user-go'])){
     $_SESSION['for-advanced'] = 'none';
 }
 elseif(isset($_POST['adv-go'])){
+    unset($_SESSION['currentbio']);
     $_SESSION['for-userbio'] = 'none';
+    $_SESSION['for-chats'] = 'none';
     $_SESSION['for-mybio'] = 'block';
     if(isset($_SESSION['user-go'])){
         unset($_SESSION['user-go']);
@@ -54,8 +58,10 @@ elseif(isset($_POST['adv-go'])){
 }
 
 elseif(isset($_GET['aboutuser'])){
+    $_SESSION['currentbio'] = $_GET['aboutuser'];
     $_SESSION['for-userbio'] = 'block';
     $_SESSION['for-mybio'] = 'none';
+    $_SESSION['for-chats'] = 'none';
     if(isset($_SESSION['issetview'])){
         // echo 'yssssssssss'.$_SESSION['issetview'];
         if($_SESSION['issetview'] == 0){
@@ -76,18 +82,21 @@ elseif(isset($_GET['aboutuser'])){
     }
 }
 else{
-    if(isset($_SESSION['user-go'])){
-        unset($_SESSION['user-go']);
+    if($flag == 0){
+        if(isset($_SESSION['user-go'])){
+            unset($_SESSION['user-go']);
+        }
+        if(isset($_SESSION['adv-go'])){
+            unset($_SESSION['adv-go']);
+        }
+        $_SESSION['issetview'] = 0;
+        $_SESSION['for-default'] = 'block';
+        $_SESSION['for-user'] = 'none';
+        $_SESSION['for-advanced'] = 'none';
+        $_SESSION['for-userbio'] = 'none';
+        $_SESSION['for-chats'] = 'none';
+        $_SESSION['for-mybio'] = 'block';
     }
-    if(isset($_SESSION['adv-go'])){
-        unset($_SESSION['adv-go']);
-    }
-    $_SESSION['issetview'] = 0;
-    $_SESSION['for-default'] = 'block';
-    $_SESSION['for-user'] = 'none';
-    $_SESSION['for-advanced'] = 'none';
-    $_SESSION['for-userbio'] = 'none';
-    $_SESSION['for-mybio'] = 'block';
 }
 
 ?>
@@ -101,11 +110,59 @@ else{
     <link rel="stylesheet" href="./mobile.css?v=<?php echo time(); ?>">
     <script src="https://kit.fontawesome.com/f5e31d8174.js" crossorigin="Harshil Soni"></script>
     <script type="text/javascript" language="JavaScript" src="main.js?v=<?php echo time(); ?>"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Welcome @ BestMatch.com</title>
 </head>
-<?php
-
-?>
+<script>
+// echo "<span class='like' id=""><i class='fas fa-thumbs-up' onclick='click_like(this)' style='color:".$like."'></i><span style='color:grey;margin-left:5px;' class='numlikes'>".$numlikes."</span></span>";
+    $(document).ready(function(){
+        $('.like').click(function(e){
+            $.ajax({
+                type: 'POST',
+                url: 'likes.php',
+                data: {likeduser : e.target.id},
+                success: function(data){
+                }
+            });
+        });
+    });
+    $(document).ready(function(){
+        $('#chatform').submit(function(e){
+        e.preventDefault();
+        if(e.target.children[0].value.trim()){
+            // console.log('ysssssssssssss');
+            $.ajax({
+                type: 'POST',
+                url : "chats.php",
+                data: $('#chatform').serialize(),
+                success: function(data){
+                    // console.log(data);
+                }
+            })
+            loadchat();
+            e.target.children[0].value = '';
+        }
+        else{
+            alert('Empty messages not allowed!!!');
+        }
+    });
+    });
+    
+    function loadchat(){
+        $.ajax({
+            type: 'POST',
+            url : 'chats.php',
+            data: {load: 'loadchat'},
+            success: function(data){
+                console.log(data);
+                $('.chat-display').html(data);
+            }
+        });
+    }
+    // $(document).ready(function(){
+        loadchat();
+    // })
+</script>
 <body>
     <div class="wrapper" style="max-height:700px;overflow:auto;padding:50px 75px 50px 75px;"> 
         <nav>
@@ -201,6 +258,28 @@ else{
                         }
                     }
                 ?>
+            </div>
+            <div class="chats row2" <?php echo "style='display:".$_SESSION['for-chats']."'"; ?>>
+                <div class="chat-area">
+                    <div class='chats'>
+                        <span class="chat-title">C H A T S</span>
+                        <span class="close-chat" ><i onclick='openchats(0)' class="fas fa-times"></i></span>
+                    </div>
+                    <div class="chat-box">
+                        <div class="chat-header">
+                        <?php echo $_GET['aboutuser'] ; ?>
+                        </div>
+                        <hr style="width:92%" />
+                        <div class="chat-display" style='overflow:auto;'></div>
+                    </div>
+                            <div class="chat-form">
+                                <form id='chatform'>
+                                    <textarea class='chat-msg' onkeyup='send_opacity()' rows='1' cols='20' name='msg' required autofocus='true'></textarea>
+                                    <input name='submitmsg' type="submit" style='opacity:0.5' class='chat-send' value="Send" />
+                                </form>
+                            </div>
+
+                </div>
             </div>
         </div>
 

@@ -4,7 +4,7 @@
     
     $search = $_SESSION["searchresult"];
 
-    $sql_userview = "SELECT firstname, lastname, bio, email, color, profession, username FROM biodata WHERE firstname LIKE '%$search%'
+    $sql_userview = "SELECT firstname, lastname, bio, email, color, profession, username, tablename FROM biodata WHERE firstname LIKE '%$search%'
                      OR lastname LIKE '%$search%' OR username LIKE '%$search%'";
 
     $res = $conn->query($sql_userview);
@@ -12,7 +12,20 @@
     $temp = 0;
     if($res->num_rows > 0){
         while($row = $res->fetch_assoc()){
-            
+            $like = 'grey';
+            $sql_tablename = "SELECT * FROM ".$row['tablename'];
+            $likes = $conn->query($sql_tablename);
+            $numlikes = $likes->num_rows ;
+            $flag = 0;
+            while($row_like = $likes->fetch_assoc()){
+                if($row_like['likers'] == $_SESSION['username'] && $flag == 0){
+                    $like = 'blue';
+                    $flag = 1;
+                }
+            }
+                    if($flag == 0){
+                        $like = 'grey';
+                    }
             if($row['profession'] == NULL){
                 $row['profession'] = 'Not Provided';
             }
@@ -39,7 +52,7 @@
             echo "<hr>";
             echo "<div class='card-row2'>";
             echo "<span class='profession'> Profession : ".$row['profession']." </span>";
-            echo "<span class='like'><i class='fas fa-thumbs-up' onclick='click_like(this)' style='color:".$like."'></i></span>";
+            echo "<span class='like'><i id = '".$row['tablename']."' class='fas fa-thumbs-up' onclick='click_like(this)' style='color:".$like."'></i><span style='color:grey;margin-left:5px;' class='numlikes'>".$numlikes."</span></span>";
             echo "</div>";
             echo"</div>";
         }

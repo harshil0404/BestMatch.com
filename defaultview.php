@@ -13,11 +13,25 @@
         $disp_gen = 'others';
     }
 
-    $sql_default = "SELECT firstname, lastname, bio, email, color, profession, username FROM biodata WHERE gender = '$disp_gen'";
+
+    $sql_default = "SELECT firstname, lastname, bio, email, color, profession, username, tablename FROM biodata WHERE gender = '$disp_gen'";
     $res = $conn->query($sql_default);
     if($res){
         while($row = $res->fetch_assoc()){
             $like = 'grey';
+            $sql_tablename = "SELECT * FROM ".$row['tablename'];
+            $likes = $conn->query($sql_tablename);
+            $numlikes = $likes->num_rows ;
+            $flag = 0;
+            while($row_like = $likes->fetch_assoc()){
+                if(strtolower($row_like['likers']) == strtolower($_SESSION['username']) && $flag == 0){
+                    $like = 'blue';
+                    $flag = 1;
+                }
+            }
+                    if($flag == 0){
+                        $like = 'grey';
+                    }
             if($row['profession'] == NULL){
                 $row['profession'] = 'Not Provided';
             }
@@ -30,7 +44,7 @@
             echo "<div class='card-row1'>";
             echo "<div class='card-p1'>";
             echo "<a href='welcome.php?aboutuser=".$row['username']."'><span class='search-initials' style="."'color:black;background-color : ".$row['color'].";'>$initials</span></a>";
-            echo "</div>";
+            echo "</div>"; 
             echo "<div class='card-p2'>";
             echo "<span class='card-name'> $name </span>";
             echo "<span class='card-email'>".$row['email']." </span>";
@@ -39,7 +53,7 @@
             echo "<hr>";
             echo "<div class='card-row2'>";
             echo "<span class='profession'> Profession : ".$row['profession']." </span>";
-            echo "<span class='like'><i class='fas fa-thumbs-up' onclick='click_like(this)' style='color:".$like."'></i></span>";
+            echo "<span class='like' ><i id = '".$row['tablename']."' class='fas fa-thumbs-up' onclick='click_like(this)' style='color:".$like."'></i><span class='numlikes' style='color:grey;margin-left:5px;'>".$numlikes."</span></span>";
             echo "</div>";
             echo"</div>";
         }

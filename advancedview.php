@@ -8,13 +8,13 @@
             $gender_adv = $_SESSION['s-gender'];
             
             if(!trim($_SESSION['s-location'])){
-                $sql_adv = "SELECT firstname, lastname, bio, email, color, profession, username FROM biodata 
+                $sql_adv = "SELECT firstname, lastname, bio, email, color, profession, username, tablename FROM biodata 
                 WHERE YEAR(CURRENT_TIMESTAMP)-YEAR(dob) >= '$age_minus' AND 2020-YEAR(dob) <= '$age_plus' 
                 AND gender = '$gender_adv'"; 
             }
             else{
                 $location_adv = $_SESSION['s-location'];
-                $sql_adv = "SELECT firstname, lastname, bio, email, color, profession, username FROM biodata 
+                $sql_adv = "SELECT firstname, lastname, bio, email, color, profession, username, tablename FROM biodata 
                 WHERE YEAR(CURRENT_TIMESTAMP)-YEAR(dob) >= '$age_minus' AND 2020-YEAR(dob) <= '$age_plus' 
                 AND gender = '$gender_adv' AND (city LIKE '%$location_adv%' OR state LIKE '%$location_adv%'
                 OR country LIKE '%$location_adv%')";
@@ -23,12 +23,12 @@
         }
         else{
             if(!trim($_SESSION['s-location'])){
-                $sql_adv = "SELECT firstname, lastname, bio, email, color, profession, username FROM biodata 
+                $sql_adv = "SELECT firstname, lastname, bio, email, color, profession, username, tablename FROM biodata 
                 WHERE YEAR(CURRENT_TIMESTAMP)-YEAR(dob) >= '$age_minus' AND 2020-YEAR(dob) <= '$age_plus'"; 
             }
             else{
                 $location_adv = $_SESSION['s-location'];
-                $sql_adv = "SELECT firstname, lastname, bio, email, color, profession, username FROM biodata 
+                $sql_adv = "SELECT firstname, lastname, bio, email, color, profession, username, tablename FROM biodata 
                 WHERE YEAR(CURRENT_TIMESTAMP)-YEAR(dob) >= '$age_minus' AND 2020-YEAR(dob) <= '$age_plus' 
                 AND (city LIKE '%$location_adv%' OR state LIKE '%$location_adv%'
                 OR country LIKE '%$location_adv%')";
@@ -41,12 +41,12 @@
 
             // echo 'yssss',$location_adv;
             if(!trim($_SESSION['s-location'])){
-                $sql_adv = "SELECT firstname, lastname, bio, email, color, profession, username FROM biodata 
+                $sql_adv = "SELECT firstname, lastname, bio, email, color, profession, username, tablename FROM biodata 
             WHERE gender = '$gender_adv'"; 
             }
             else{
                 $location_adv = $_SESSION['s-location'];
-                $sql_adv = "SELECT firstname, lastname, bio, email, color, username ,profession FROM biodata 
+                $sql_adv = "SELECT firstname, lastname, bio, email, color, username ,profession, tablename FROM biodata 
                 WHERE gender = '$gender_adv' AND (city LIKE '%$location_adv%' OR state LIKE '%$location_adv%'
                 OR country LIKE '%$location_adv%')";
             }
@@ -57,7 +57,7 @@
             }
             else{
                 $location_adv = $_SESSION['s-location'];
-                $sql_adv = "SELECT firstname, lastname, bio, email, color, profession, username FROM biodata 
+                $sql_adv = "SELECT firstname, lastname, bio, email, color, profession, username, tablename FROM biodata 
                 WHERE (city LIKE '%$location_adv%' OR state LIKE '%$location_adv%'
                 OR country LIKE '%$location_adv%')";
             }
@@ -68,6 +68,20 @@
 
     if($res->num_rows > 0){
         while($row = $res->fetch_assoc()){
+            $like = 'grey';
+            $sql_tablename = "SELECT * FROM ".$row['tablename'];
+            $likes = $conn->query($sql_tablename);
+            $numlikes = $likes->num_rows ;
+            $flag = 0;
+            while($row_like = $likes->fetch_assoc()){
+                if($row_like['likers'] == $_SESSION['username'] && $flag == 0){
+                    $like = 'blue';
+                    $flag = 1;
+                }
+                elseif($flag == 0){
+                    $like = 'grey';
+                }
+            }
             if(strtolower($row['username']) == strtolower( $_SESSION['username'])){
                 $temp = 1;
                 continue;
@@ -93,7 +107,7 @@
             echo "<hr>";
             echo "<div class='card-row2'>";
             echo "<span class='profession'> Profession : ".$row['profession']." </span>";
-            echo "<span class='like'><i class='fas fa-thumbs-up' onclick='click_like(this)' style='color:".$like."'></i></span>";
+            echo "<span class='like'><i id = '".$row['tablename']."' class='fas fa-thumbs-up' onclick='click_like(this)' style='color:".$like."'></i><span style='color:grey;margin-left:5px;' class='numlikes'>".$numlikes."</span></span>";
             echo "</div>";
             echo"</div>";
         }
